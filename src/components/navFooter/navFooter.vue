@@ -1,36 +1,13 @@
 <template>
   <footer class="footer_guide border-1px">
-    <a v-for="(item, index) in footerData" :key="index" href="javascript:;" class="guide_item" :class="`${$route.path === item.path ? 'on' : ''}`"
-    @click.stop="handleFooter(item.path)">
+    <a v-for="(item, index) in footerData" :key="index" href="javascript:;" class="guide_item"
+       :class="{'on': $route.path === item.path}"
+       @click.stop="handleFooter(item.path)">
       <span class="item_icon">
         <i :class="`icon iconfont ${item.footerIcon}`"></i>
       </span>
       <span>{{item.name}}</span>
     </a>
-    <!--<a href="javascript:;" class="guide_item on">
-      <span class="item_icon">
-        <i class="icon iconfont iconziyuan"></i>
-      </span>
-      <span>外卖</span>
-    </a>
-    <a href="javascript:;" class="guide_item">
-      <span class="item_icon">
-        <i class="icon iconfont iconsousuo"></i>
-      </span>
-      <span>搜索</span>
-    </a>
-    <a href="javascript:;" class="guide_item">
-      <span class="item_icon">
-        <i class="icon iconfont icondingdan"></i>
-      </span>
-      <span>订单</span>
-    </a>
-    <a href="javascript:;" class="guide_item">
-      <span class="item_icon">
-        <i class="icon iconfont iconwode"></i>
-      </span>
-      <span>我的</span>
-    </a>-->
   </footer>
 </template>
 
@@ -65,9 +42,10 @@
     },
     methods: {
       handleFooter (path) {
+        if (this.$route.path === path) return
         this.$router.push({path})
       }
-    }
+    },
   }
 </script>
 
