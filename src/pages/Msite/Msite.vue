@@ -20,7 +20,7 @@
   import HeaderTop from '../../components/HeaderTop/HeaderTop'
 
   export default {
-    name: "Msite"
+    name: "Msite",
     components: {
       HeaderTop
     },
