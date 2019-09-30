@@ -11,11 +11,16 @@ router.use((req, res, next) => {
   next()
 })
 
-router.get('/header_food', (req, res) => {
-  headerFoodModel.find((err, data) => {
-    console.log('data', data)
+// 外卖中的首页导航食物列表
+router.get('/msite/header_food', (req, res) => {
+  headerFoodModel.find((err, data, next) => {
+    if (err) return next(err)
+    return res.status(200).json({
+      err_code: 0,
+      result: data,
+      msg: '获取数据成功'
+    })
   })
-  res.send('这是使用get请求，来请求根路径')
 })
 
 // 向外暴露路由接口

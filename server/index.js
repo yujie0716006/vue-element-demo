@@ -16,6 +16,16 @@ mongoose.connect('mongodb://localhost/element', {useNewUrlParser: true})
 app.use('/', index)
 app.use('/user', user)
 
+// 这个错误机制必须有四个参数，必须在app.use（router）将路由挂载在app后使用。前面的路由如果调用next并传递参数时，就直接跳到这个中间件上面了
+app.use((err, req, res, next) => {
+  if (err) {
+    return res.status(500).json({
+      err_code: 500,
+      msg: '服务器出现错误',
+      status: 'error'
+    })
+  }
+})
 
 // 监听是否启动了服务器
 app.listen(5000, () => {

@@ -5,8 +5,7 @@ const baseURL = 'http://localhost:5000'
 
 // 自己创建一个axios实例
 const server = axios.create({
-  baseURL,
-  timeout: 2000 // 设置的超时时间
+  baseURL: baseURL
 })
 
 // 设置请求拦截器，发送每个请求会先进入到这个函数
