@@ -15,146 +15,92 @@
     </HeaderTop>
 
     <!--首页导航-->
-    <!--<nav class="msite_nav">
-      <div class="swiper-container">
+    <nav class="msite_nav">
+      <div class="swiper-container" v-if="headerFoodList.length">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
+          <div class="swiper-slide" v-for="(swiperItem, index) in headerFoodList" :key="index">
+            <a href="javascript:" class="link_to_food" v-for="(item, index) in swiperItem" :key="index">
               <div class="food_container">
-                <img src="./images/nav/1.jpg">
+                <img :src="imgUrl+item.image_url">
               </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/3.jpg">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/4.jpg">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/5.jpg">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/6.jpg">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/7.jpg">
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/8.jpg">
-              </div>
-              <span>土豪推荐</span>
-            </a>
-          </div>
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/9.jpg">
-              </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/10.jpg">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/11.jpg">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/12.jpg">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/13.jpg">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/14.jpg">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/1.jpg">
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg">
-              </div>
-              <span>土豪推荐</span>
+              <span>{{item.title}}</span>
             </a>
           </div>
         </div>
-        &lt;!&ndash; Add Pagination &ndash;&gt;
+        <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
       </div>
-    </nav>-->
+      <img src="./images/msite_back.svg" alt="black" v-else>
+    </nav>
+
+    <!--首页附近商家-->
+    <div class="msite_shop_list">
+      <div class="shop_header">
+        <i class="iconfont iconcaidan"></i>
+        <span class="shop_header_title">附近商家</span>
+      </div>
+    </div>
+    <ShopList></ShopList>
   </div>
 </template>
 
 <script>
+  import Swiper from 'swiper'
   import HeaderTop from '../../components/HeaderTop/HeaderTop'
+  import ShopList from '../../components/ShopList/ShopList'
   import {headerFood} from "../../api/api";
 
   export default {
     name: "Msite",
     components: {
-      HeaderTop
+      HeaderTop,
+      ShopList
     },
     data() {
       return {
         title: '昌平区北七家宏福科技园(337省道北)',
-        headerFood: []
+        headerFoodList: [],
+        imgUrl: 'https://cube.elemecdn.com/', // 饿了么图片地址
       }
     },
     mounted () {
+    //  下次更新DOM之前调用
+        setTimeout(() => {
+          new Swiper('.swiper-container', {
+            loop: true, // 可以循环轮播
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          })
+        }, 0)
+
     //  获取首页的食物导航列表
       headerFood()
         .then(res => {
-          console.log('res', res)
+          const result = res.data
+          if (result.err_code === 0) {
+            let arr = []
+            result.result.forEach(item => {
+              if (arr.length === 8) {
+                this.headerFoodList.push(arr)
+                arr = []
+              } else {
+                arr.push(item)
+              }
+            })
+            this.headerFoodList.push(arr)
+          }
         })
     }
   }
 </script>
 
 <style lang='stylus' rel='stylesheet/stylus' scoped>
+  @import '~swiper/css/swiper.min.css'
   .msite_nav
     bottom-border-1px(#e4e4e4)
-    margin-top 15px
+    margin-top 45px
     height 200px
     background #fff
     .swiper-container
@@ -165,7 +111,7 @@
         height 100%
         .swiper-slide
           display flex
-          justify-content center
+          justify-content start
           align-items flex-start
           flex-wrap wrap
           .link_to_food
@@ -189,4 +135,17 @@
       .swiper-pagination
         >span.swiper-pagination-bullet-active
           background #02a774
+  .msite_shop_list
+    top-border-1px(#e4e4e4)
+    margin-top 10px
+    background #fff
+    .shop_header
+      padding 10px 10px 0
+      .shop_icon
+        margin-left 5px
+        color #999
+      .shop_header_title
+        color #999
+        font-size 14px
+        line-height 20px
 </style>

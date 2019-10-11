@@ -15,7 +15,7 @@
 
 <style lang='stylus' rel='stylesheet/stylus' scoped>
   // 引入的在线icon图库
-  @import '//at.alicdn.com/t/font_1423319_3hll52s2v1b.css'
+  @import '//at.alicdn.com/t/font_1423319_2vb4tf87rma.css'
   @import './common/css/reset.css'
   #app
     width: 100%
