@@ -43,6 +43,11 @@ export default new VueRouter({
           ]
         }
       ]
+    },
+    {
+      path: '/login',
+      name: '登陆',
+      component: () => import('../pages/Login/Login')
     }
   ]
 })
