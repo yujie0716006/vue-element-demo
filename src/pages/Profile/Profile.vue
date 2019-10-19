@@ -104,7 +104,11 @@
   export default {
     name: "Profile",
     data() {
-      return {}
+      return {
+
+      }
+    },
+    methods: {
     }
   }
 </script>

@@ -7,6 +7,7 @@
 
 <script>
   import NavFooter from '@/components/navFooter/navFooter'
+  import {getAddressPoint, pointToAddress} from './common/js/map'
   export default {
     name: "App",
     components: {
@@ -14,6 +15,10 @@
     },
     data() {
       return {}
+    },
+    mounted () {
+      getAddressPoint(this)
+      pointToAddress(this)
     }
   }
 </script>

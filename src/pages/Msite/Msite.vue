@@ -45,6 +45,8 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+
   import Swiper from 'swiper'
   import HeaderTop from '../../components/HeaderTop/HeaderTop'
   import ShopList from '../../components/ShopList/ShopList'
@@ -58,10 +60,15 @@
     },
     data() {
       return {
-        title: '昌平区北七家宏福科技园(337省道北)',
         headerFoodList: [],
         imgUrl: 'https://cube.elemecdn.com/', // 饿了么图片地址
       }
+    },
+    computed: {
+    //  适用对象展开运算符将此对象混入到外部对象中
+      ...mapState({
+        title: state => state.address
+      })
     },
     mounted () {
     //  下次更新DOM之前调用

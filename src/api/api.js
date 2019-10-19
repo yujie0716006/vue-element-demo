@@ -9,3 +9,8 @@ export const headerFood = () => {
 export const merchantsShop = (params) => {
   return ajax.get('/msite/shoplist', params)
 }
+
+// 向手机号发送短信验证码
+export const sendCode = (params) => {
+  return ajax.post('/sendCaptcha', params)
+}

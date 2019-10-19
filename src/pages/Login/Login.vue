@@ -14,7 +14,10 @@
           <div :class="{on: isOnShow}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-              <button disabled="disabled" class="get_verification">获取验证码</button>
+              <button :disabled="!isCountdown" class="get_verification" :class="{right_phone: isCountdown}"
+              @click="getCode">
+                {{computeTime > 0 ? `已发送${computeTime}s` : '获取验证码'}}
+              </button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
@@ -40,7 +43,8 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="pwdCode">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <img class="get_verification" src="http://localhost:5000/captcha" alt="captcha"
+                ref="svgCaptcha" @click.stop.prevent="getNewCaptcha">
               </section>
             </section>
           </div>
@@ -56,6 +60,8 @@
 </template>
 
 <script>
+  import {sendCode} from "../../api/api";
+
   export default {
     name: "Login",
     data() {
@@ -67,6 +73,39 @@
         name: '', // 用户名
         pwd: '', // 密码
         pwdCode: '', // 密码登录的验证码
+        computeTime: 0, // 验证码发送的计时时间
+        isCountdown: false, // 能否点击发送验证码
+      }
+    },
+    watch: {
+      phone (val) {
+        this.isCountdown = /^1[3456789]\d{9}$/.test(val)
+      }
+    },
+    mounted () {
+    },
+    methods: {
+    //  获取手机验证码
+      getCode () {
+        this.isCountdown = false
+        this.computeTime = 30
+        // 调用发送手机验证码接口
+        sendCode({phone: this.phone})
+          .then(res => {
+            console.log('点击获取验证啊', res)
+          })
+        const timer = setInterval (() => {
+          this.computeTime--
+          if (this.computeTime <= 0) {
+            clearInterval(timer)
+            this.isCountdown = true
+          }
+        }, 1000)
+      },
+
+    //  点击验证码获取到新的验证码图片，只有每次地址刷新或是改变后才会返回新的验证码
+      getNewCaptcha () {
+        this.$refs.svgCaptcha.src = `http://localhost:5000/captcha?time=${new Date()}`
       }
     }
   }
