@@ -11,6 +11,11 @@ export const merchantsShop = (params) => {
 }
 
 // 向手机号发送短信验证码
-export const sendCode = (params) => {
-  return ajax.post('/sendCaptcha', params)
+export const sendPhoneCode = (params) => {
+  return ajax.get('/sendCaptcha', params)
+}
+
+// 登陆接口
+export const loginInfo = (params) => {
+  return ajax.post('/login', params)
 }

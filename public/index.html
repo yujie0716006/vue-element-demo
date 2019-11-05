@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+<!-- 最好放在上面，先引入后后加在DOM元素的内容-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4wVlxdYhpGECDUxITs43yYW6GOqWVSfe"></script>
     <title>element-demo</title>
   </head>
   <body>
@@ -14,5 +16,6 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4wVlxdYhpGECDUxITs43yYW6GOqWVSfe"></script>
+<!--  放在这里有时候会报错，因为在页面中在使用了BMap，在引入的会报错-->
+<!--  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4wVlxdYhpGECDUxITs43yYW6GOqWVSfe"></script>-->
 </html>

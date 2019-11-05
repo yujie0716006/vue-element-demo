@@ -3,11 +3,11 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:5000'
 
-// 自己创建一个axios实例
 const server = axios.create({
   baseURL: baseUrl,
-  timeout: 5000
+  timeout: 30000
 })
+
 
 // 设置请求拦截器，发送每个请求会先进入到这 个函数
 server.interceptors.request.use((config) => {
