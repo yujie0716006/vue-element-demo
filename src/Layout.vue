@@ -9,6 +9,10 @@
     name: "Layout",
     data() {
       return {}
+    },
+    mounted() {
+      // 要在页面一加载的时候，就去判断用户是否登陆了，如果登陆了获取用户信息，如果没有登陆让用户去登陆
+      this.$store.dispatch('login_userinfo')
     }
   }
 </script>

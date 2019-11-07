@@ -19,3 +19,8 @@ export const sendPhoneCode = (params) => {
 export const loginInfo = (params) => {
   return ajax.post('/login', params)
 }
+
+// 判断用户是否已经登陆
+export const userInfo = () => {
+  return ajax.get('/getUserInfo')
+}

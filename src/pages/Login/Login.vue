@@ -158,6 +158,7 @@
               })
             } else {
               this.$router.push({path: '/app/profile'})
+              this.$store.dispatch('receive_userinfo', result.data)
             }
           })
       }

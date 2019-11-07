@@ -92,7 +92,7 @@ router.post('/login', (req, res, next) => {
   const {phone, code, name, pwdCode} = req.body
   let {pwd} = req.body
   if (pwd) {
-     pwd = md5(md5(req.body.pwd))
+    pwd = md5(md5(req.body.pwd))
   }
   if (!!name) { // 密码登录
     userModel.findOne({
@@ -111,13 +111,15 @@ router.post('/login', (req, res, next) => {
           name,
           pwd,
           phone: name,
-          money: 100 * Math.random().toFixed(4) + '',
-          integral: 100 * Math.random().toFixed(4) + '',
-          preferential: 100 * Math.random().toFixed(4) + '',
+          money: Math.ceil(159 * Math.random()) + '',
+          integral: Math.ceil(59 * Math.random()) + '',
+          preferential: Math.ceil(59 * Math.random()) + '',
         }
         // uerModel是模型，new userModel是构建这个模型的实例，然后根据传入的参数保存这个实例，进行保存save
-        new userModel(person).save((err) => {
+        new userModel(person).save((err, user) => {
           if (err) next(err)
+          // session是存储服务器的内容，所以要是用erq.session来获取和设置内容
+          req.session.userId = user._id
           res.status(200).send({
             code_err: 0,
             msg: '存储用户成功',
@@ -126,6 +128,8 @@ router.post('/login', (req, res, next) => {
         })
       } else { // 用户存在，判断密码和验证码是否正确
         if (textCaptcha === pwdCode && user.pwd === pwd) {
+          req.session.userId = user._id
+          console.log('session', req.session)
           res.status(200).send({
             code_err: 0,
             msg: '用户存在且密码和验证码都正确',
@@ -146,6 +150,7 @@ router.post('/login', (req, res, next) => {
         phone
       }, (err, data) => {
         if (err) next(err)
+        req.session.userId = data._id
         res.status(200).send({
           code_err: 0,
           data: data,
@@ -160,6 +165,32 @@ router.post('/login', (req, res, next) => {
     }
   }
 
+})
+
+// 判断用户是否已经登陆
+router.get('/getUserInfo', (req, res, next) => {
+  // 首先获取到客户端里面的session
+  const userId = req.session.userId
+  console.log('后台的getUrseInfo,userId', userId)
+//  根据这个userId存在是否在数据库中存在
+  userModel.findOne({
+    _id: userId
+  }, (err, user) => {
+    if (err) next(err)
+    if (!user) { // 表示数据库中没有这个用户，没有登陆
+      res.status(200).send({
+        code_err: 1,
+        msg: '请重新登陆',
+        data: null
+      })
+    } else { // 表示这个userId在数据库中存在，这个用户处于登陆状态
+      res.status(200).send({
+        code_err: 0,
+        msg: '用户存在，且已经登陆',
+        data: user
+      })
+    }
+  })
 })
 
 

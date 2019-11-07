@@ -1,10 +1,10 @@
-import {merchantsShop} from "../api/api";
-import {RECEIVE_SHOPS, RECEIVE_ADDRESS} from './types'
+import {merchantsShop, userInfo} from "../api/api";
+import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO} from './types'
 
 export default {
   // 调用接口获取首页附近商家
-  async receive_shop ({commit, state}) {
-  // 这样是结构赋值，获取到里面的提交和状态
+  async receive_shop({commit, state}) {
+    // 这样是结构赋值，获取到里面的提交和状态
     const params = {
       latitude: state.latitude,
       longitude: state.longitude
@@ -17,7 +17,21 @@ export default {
   },
 
 //  当前的地理位置信息
-  receive_address ({commit}, address) {
-   commit(RECEIVE_ADDRESS, address)
+  receive_address({commit}, address) {
+    commit(RECEIVE_ADDRESS, address)
+  },
+
+//  获取用户的基本信息
+  receive_userinfo({commit}, user) {
+    commit(RECEIVE_USERINFO, user)
+  },
+
+//  判断用户是否登陆
+  async login_userinfo({commit}) {
+    const result = await userInfo()
+    console.log('刷新后得到的数据', result)
+    commit(RECEIVE_USERINFO, result.data)
   }
+
+
 }
