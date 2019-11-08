@@ -24,3 +24,8 @@ export const loginInfo = (params) => {
 export const userInfo = () => {
   return ajax.get('/getUserInfo')
 }
+
+//搜索商家以及美食
+export const search_foods = (params) => {
+  return ajax.get('/search_shops', params)
+}

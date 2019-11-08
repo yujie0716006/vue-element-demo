@@ -193,6 +193,36 @@ router.get('/getUserInfo', (req, res, next) => {
   })
 })
 
+// 搜索页面搜索商家及美食
+router.get('/search_shops', (req, res, next) => {
+  const {shopOrFood} = req.query
+  shopListModel.find({
+    $or: [ // #or: []表示多个选择的条件是或的关系
+      {
+        category: {$regex: new RegExp(shopOrFood)}
+      },
+      {
+        name: {$regex: new RegExp(shopOrFood)}
+      }
+    ]
+  }, (err, data) => {
+    if (err) next(err)
+    if (data) {
+      res.status(200).send({
+        code_err: 0,
+        data,
+        msg: '获取食物列表成功'
+      })
+    } else { // 表示没有搜到
+      res.status(200).send({
+        code_err: 1,
+        data: null,
+        msg: '没有搜索到相关的内容'
+      })
+    }
+  })
+})
+
 
 // 向外暴露路由接口
 module.exports = router
