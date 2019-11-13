@@ -71,7 +71,7 @@
     }),
     methods: {
       handleDetail (item) {
-        console.log('item', item)
+        this.$router.push({path: '/food_detail', query: {foodId: item.id}})
       }
     }
   }

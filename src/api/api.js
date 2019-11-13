@@ -29,3 +29,8 @@ export const userInfo = () => {
 export const search_foods = (params) => {
   return ajax.get('/search_shops', params)
 }
+
+// 得到相信的商家信息
+export const food_detail = () => {
+  return ajax.get('/foods')
+}

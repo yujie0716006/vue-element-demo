@@ -48,6 +48,11 @@ export default new VueRouter({
       path: '/login',
       name: '登陆',
       component: () => import('../pages/Login/Login')
+    },
+    {
+      path: '/food_detail',
+      name: '商品详情',
+      component: () => import('../pages/FoodDetail/FoodDetail')
     }
   ]
 })

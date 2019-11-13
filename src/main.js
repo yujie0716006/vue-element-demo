@@ -7,6 +7,9 @@ import store from './store'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+// 引入mock中的数据，将其应用在全局中
+import './mock/index'
+
 Vue.use(MintUI)
 
 
