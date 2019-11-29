@@ -8,19 +8,19 @@ export const foodsData =  Mock.mock({
         "name": "@csentence(5)",
         "description": "硅谷专送",
         "deliveryTime|20-50": 28,
-        "score|1-5.0-9": 4.2,
-        "serviceScore|1-5.0-9": 4.1,
-        "foodScore|1-5.0-9": 4.3,
+        "score": 4.2,
+        "serviceScore": 4.1,
+        "foodScore": 4.3,
         "rankRate|1-100.0-9": 69.2,
         "minPrice|1-50": 20,
         "deliveryPrice|1-9": 4,
         "ratingCount|1-100": 24,
         "sellCount|1-100": 90,
-        "distance|1-1000": "1000m",
+        "distance": "1000m",
         "bulletin": '@cparagraph()',
         "supports|3-4": [
           {
-            "type|0-5": 0,
+            "type|0-2": 0,
             "name": "@region()",
             "content": "@csentence()"
           },
@@ -66,13 +66,13 @@ export const foodsData =  Mock.mock({
           ]
         }
       ],
-      "ratings": [
+      "ratings|10": [
         {
           "username": "3******c",
           "rateTime": ' @id',
           "deliveryTime": 30,
           "score": 5,
-          "rateType": 0,
+          "rateType|0-1": 0,
           "text": "不错,粥很好喝,我经常吃这一家,非常赞,以后也会常来吃,强烈推荐.",
           "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
           "recommend": [

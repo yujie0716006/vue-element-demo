@@ -1,5 +1,5 @@
 import {merchantsShop, userInfo} from "../api/api";
-import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO} from './types'
+import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO, SHOP_DETAIL_INFO} from './types'
 
 export default {
   // 调用接口获取首页附近商家
@@ -31,6 +31,11 @@ export default {
     const result = await userInfo()
     // console.log('刷新后得到的数据', result)
     commit(RECEIVE_USERINFO, result.data)
+  },
+
+//  更新商品的详情信息
+  shop_detail_info({commit}, shopObj) {
+    commit(SHOP_DETAIL_INFO, shopObj)
   }
 
 

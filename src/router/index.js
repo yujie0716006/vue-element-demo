@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 export default new VueRouter({
+  // linkActiveClass: 'a_active_style',
   routes: [
     {
       path: '/',
@@ -51,8 +52,29 @@ export default new VueRouter({
     },
     {
       path: '/food_detail',
+      redirect: '/food_detail/order_food'
+    },
+    {
+      path: '/food_detail',
       name: '商品详情',
-      component: () => import('../pages/FoodDetail/FoodDetail')
+      component: () => import('../pages/FoodDetail/FoodDetail'),
+      children: [
+        {
+          path: 'order_food',
+          name: '点餐',
+          component: () => import('../pages/FoodDetail/OrderFood/OrderFood')
+        },
+        {
+          path: 'rating',
+          name: '评价',
+          component: () => import('../pages/FoodDetail/Rating/Rating')
+        },
+        {
+          path: 'shop_info',
+          name: '商家信息',
+          component: () => import('../pages/FoodDetail/ShopInfo/ShopInfo')
+        }
+      ]
     }
   ]
 })
