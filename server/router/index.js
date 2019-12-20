@@ -129,7 +129,6 @@ router.post('/login', (req, res, next) => {
       } else { // 用户存在，判断密码和验证码是否正确
         if (textCaptcha === pwdCode && user.pwd === pwd) {
           req.session.userId = user._id
-          console.log('session', req.session)
           res.status(200).send({
             code_err: 0,
             msg: '用户存在且密码和验证码都正确',
@@ -170,8 +169,7 @@ router.post('/login', (req, res, next) => {
 // 判断用户是否已经登陆
 router.get('/getUserInfo', (req, res, next) => {
   // 首先获取到客户端里面的session
-  const userId = req.session.userId
-  console.log('后台的getUrseInfo,userId', userId)
+  const userId = req.query.id
 //  根据这个userId存在是否在数据库中存在
   userModel.findOne({
     _id: userId
@@ -181,7 +179,7 @@ router.get('/getUserInfo', (req, res, next) => {
       res.status(200).send({
         code_err: 1,
         msg: '请重新登陆',
-        data: null
+        data: ''
       })
     } else { // 表示这个userId在数据库中存在，这个用户处于登陆状态
       res.status(200).send({

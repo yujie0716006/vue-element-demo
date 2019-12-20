@@ -28,9 +28,9 @@ export default {
 
 //  判断用户是否登陆
   async login_userinfo({commit}) {
-    const result = await userInfo()
-    // console.log('刷新后得到的数据', result)
-    commit(RECEIVE_USERINFO, result.data)
+    const id = sessionStorage.getItem('id')
+    const result = await userInfo({id})
+    commit(RECEIVE_USERINFO, result.data.data)
   },
 
 //  更新商品的详情信息

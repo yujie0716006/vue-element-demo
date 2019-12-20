@@ -21,8 +21,8 @@ export const loginInfo = (params) => {
 }
 
 // 判断用户是否已经登陆
-export const userInfo = () => {
-  return ajax.get('/getUserInfo')
+export const userInfo = (params) => {
+  return ajax.get('/getUserInfo', params)
 }
 
 //搜索商家以及美食

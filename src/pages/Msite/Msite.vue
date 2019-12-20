@@ -9,7 +9,7 @@
       </template>
       <template v-slot:right>
         <span class="header_login">
-            <span class="header_login_text">登录|注册</span>
+            <router-link class="header_login_text" to="/login" v-show="!user.name">登录|注册</router-link>
         </span>
       </template>
     </HeaderTop>
@@ -67,7 +67,8 @@
     computed: {
     //  适用对象展开运算符将此对象混入到外部对象中
       ...mapState({
-        title: state => state.address
+        title: state => state.address,
+        user: state => state.user
       })
     },
     mounted () {

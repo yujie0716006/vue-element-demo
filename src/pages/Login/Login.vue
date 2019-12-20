@@ -48,7 +48,8 @@
               </section>
             </section>
           </div>
-          <button class="login_submit" @click.stop.prevent="handleLogin">登录</button>
+          <button class="login_submit" @click.stop.prevent="handleLogin" v-if="!user.name">登录</button>
+          <button class="login_submit login-out" @click.stop.prevent="handleLoginOut" v-else>退出</button>
         </form>
         <a href="javascript:;" class="about_us">关于我们</a>
       </div>
@@ -60,6 +61,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import {sendPhoneCode, loginInfo} from "../../api/api";
   import {MessageBox} from 'mint-ui';
 
@@ -94,7 +96,10 @@
         }
       }
     },
-    mounted() {
+    computed: {
+      ...mapState({
+        user: state => state.user
+      })
     },
     methods: {
       //  获取手机验证码
@@ -148,7 +153,6 @@
         }
         loginInfo(userInfo)
           .then(res => {
-            console.log('登陆的信息', res)
             const result = res.data
             if (result.code_err !== 0) {
               MessageBox.alert(`${result.msg}`).then(() => {
@@ -157,10 +161,18 @@
                 this.pwd = ''
               })
             } else {
+              sessionStorage.setItem('id', result.data._id)
               this.$router.push({path: '/app/profile'})
               this.$store.dispatch('receive_userinfo', result.data)
             }
           })
+      },
+
+    //  用户登出,清除sessionStorage
+      handleLoginOut() {
+        sessionStorage.removeItem('id')
+        this.$store.dispatch('receive_userinfo', {})
+        this.$router.push({path: '/app/profile'})
       }
     }
   }
@@ -313,6 +325,8 @@
             font-size 16px
             line-height 42px
             border 0
+          .login-out
+            background-color red
 
         .about_us
           display block

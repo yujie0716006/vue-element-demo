@@ -119,6 +119,8 @@
 
       }
     },
+    mounted () {
+    },
     computed: { // 计算属性，当里面的值改变的时候，自动更新
       ...mapState({
         user: state => state.user
@@ -173,6 +175,7 @@
         transform translateY(-50%)
         .header_login_text
           color #fff
+          cursor pointer
     .profile-number
       margin-top 45.5px
       .profile-link
