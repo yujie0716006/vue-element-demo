@@ -107,11 +107,13 @@
         </a>
       </section>
     </section>
+    <button class="login-out" @click.stop.prevent="handleLoginOut" v-show="user.name">退出登陆</button>
   </div>
 </template>
 
 <script>
   import {mapState} from 'vuex'
+  import {MessageBox} from 'mint-ui'
   export default {
     name: "Profile",
     data() {
@@ -127,6 +129,14 @@
       })
     },
     methods: {
+      //  用户登出,清除sessionStorage
+      handleLoginOut() {
+        MessageBox.confirm('是否确定退出登录？')
+          .then(() => {
+            sessionStorage.removeItem('id')
+            this.$store.dispatch('receive_userinfo', {})
+          })
+      }
     }
   }
 </script>
@@ -302,4 +312,16 @@
             height 10px
             .iconchangyongtubiao-xianxingdaochu-zhuanqu-
               color #bbb
+  .login-out
+    display block
+    width 100%
+    height 42px
+    margin-top 30px
+    border-radius 4px
+    background red
+    color #fff
+    text-align center
+    font-size 16px
+    line-height 42px
+    border 0
 </style>

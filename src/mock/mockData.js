@@ -35,11 +35,11 @@ export const foodsData =  Mock.mock({
         "address": "@county(true)",
         "workTime": "@now()"
       },
-      "goods|7": [
+      "goods|10": [
         {
-          "name": "优惠",
+          "name|1-12": 1,
           "icon": "https://fuss10.elemecdn.com/b/91/8cf4f67e0e8223931cd595dc932fepng.png",
-          "foods|4-6": [
+          "foods|1-2": [
             {
               "name": "南瓜粥",
               "price|0-9": 9,

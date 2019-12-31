@@ -49,7 +49,6 @@
             </section>
           </div>
           <button class="login_submit" @click.stop.prevent="handleLogin" v-if="!user.name">登录</button>
-          <button class="login_submit login-out" @click.stop.prevent="handleLoginOut" v-else>退出</button>
         </form>
         <a href="javascript:;" class="about_us">关于我们</a>
       </div>
@@ -167,13 +166,6 @@
             }
           })
       },
-
-    //  用户登出,清除sessionStorage
-      handleLoginOut() {
-        sessionStorage.removeItem('id')
-        this.$store.dispatch('receive_userinfo', {})
-        this.$router.push({path: '/app/profile'})
-      }
     }
   }
 </script>
@@ -325,8 +317,6 @@
             font-size 16px
             line-height 42px
             border 0
-          .login-out
-            background-color red
 
         .about_us
           display block

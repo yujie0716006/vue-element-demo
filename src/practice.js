@@ -1,9 +1,9 @@
-const data = {
-  a: "aaa",
-  b: undefined,
-  c: Symbol("dd"),
-  fn: function() {
-    return true;
+const statueBtn = (val) => {
+  const statusObj = {
+    '1': 'success',
+    '0': 'warning',
+    '-1': 'error'
   }
-};
-console.log('qq', JSON.stringify(data))
+  return statusObj[val]
+}
+console.log('statueBtn(1)', statueBtn('-1'))
