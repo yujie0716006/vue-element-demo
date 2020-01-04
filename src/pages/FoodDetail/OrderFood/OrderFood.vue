@@ -5,7 +5,7 @@
       <div class="menu-wrapper" id="menuWrapper">
         <ul>
           <!--current-->
-          <li class="menu-item" v-for="(good, index) in orderFoods" :key="index" @click="handleMenu(good, index)"
+          <li class="menu-item" v-for="(good, index) in orderFoods" :key="index" @click="handleMenu(index)"
           :class="`${menuNum === index ? 'current' : ''}`">
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
@@ -67,7 +67,9 @@
     mounted() {
       console.log('食物', this.orderFoods)
         this.$nextTick(() => {
-          this._initScroll()
+          setTimeout(() => {
+            this._initScroll()
+          }, 100)
         })
     },
     computed: {
@@ -77,17 +79,18 @@
       menuNum() {
         const {scrollY, heightArr} = this
         const index = heightArr.findIndex((item, index) => {
-          return item <= scrollY && scrollY <= heightArr[index + 1]
+          return item <= scrollY && scrollY < heightArr[index + 1]
         })
         return index
       }
     },
     methods: {
     //  点击左侧的菜单
-      handleMenu(menu, index) {
-        const foodListDom = document.getElementsByClassName('food-list-hook')
-        this.menuNum = index
-        this.foodScroll.scrollToElement(foodListDom[index], 300)
+      handleMenu(index) {
+        const {heightArr} = this
+        const scrollY = heightArr[index]
+        this.scrollY = scrollY
+        this.foodScroll.scrollTo(0, -scrollY, 300)
       },
       _initScroll() {
         let domHeight = 0
