@@ -5,4 +5,5 @@ export default {
   address: '', // 当前的地理位置
   user: {}, // 用户信息
   shopDetailInfo: {}, // 商品的详细信息
+  foodCarts: [] // 购物车里面的食物
 }

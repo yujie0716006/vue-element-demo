@@ -1,4 +1,4 @@
-import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO, SHOP_DETAIL_INFO} from "./types";
+import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO, SHOP_DETAIL_INFO, FOOD_REDUCE_ADD} from "./types";
 
 export default {
   // 更新首页附近商家的信息
@@ -19,5 +19,12 @@ export default {
 //  更新商品的详情信息
   [SHOP_DETAIL_INFO](state, shopObj) {
     state.shopDetailInfo = shopObj
+  },
+
+//  添加或是减少食品
+  [FOOD_REDUCE_ADD](state, foodObj) {
+    console.log('foodObj', foodObj)
+    // 对食品列表的操作
+    // state.foodCarts
   }
 }

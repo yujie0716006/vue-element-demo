@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>text</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="./promise.js"></script>
+<script type='text/javascript'>
+  const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve('成功')
+      reject('失败')
+    })
+  })
+  p.then(
+    value => console.log('resolve111111', value),
+    reason => console.log('reject111111', reason)
+  )
+  p.then(
+    value => console.log('resolve22222', value),
+    reason => console.log('reject22222', reason)
+  )
+
+</script>
+</html>

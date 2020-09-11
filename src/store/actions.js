@@ -1,5 +1,5 @@
 import {merchantsShop, userInfo} from "../api/api";
-import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO, SHOP_DETAIL_INFO} from './types'
+import {RECEIVE_SHOPS, RECEIVE_ADDRESS, RECEIVE_USERINFO, SHOP_DETAIL_INFO, FOOD_REDUCE_ADD} from './types'
 
 export default {
   // 调用接口获取首页附近商家
@@ -36,6 +36,11 @@ export default {
 //  更新商品的详情信息
   shop_detail_info({commit}, shopObj) {
     commit(SHOP_DETAIL_INFO, shopObj)
+  },
+
+//  添加或是减少食品
+  food_reduce_add({commit}, foodObj) {
+    commit(FOOD_REDUCE_ADD, foodObj)
   }
 
 

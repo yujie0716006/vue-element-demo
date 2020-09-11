@@ -37,7 +37,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-<!--                    <CartControl :food="food"/>-->
+                    <CartControl :food="food"/>
                   </div>
                 </div>
               </li>
@@ -54,8 +54,14 @@
 <script>
   import {mapState} from 'vuex'
   import BScroll from '@better-scroll/core'
+  import CartControl from '@/components/CartControl/CartControl'
+  import ShopCart from '@/components/ShopCart/ShopCart'
   export default {
     name: "OrderFood",
+    components: {
+      CartControl,
+      ShopCart
+    },
     data() {
       return {
         menuScroll: '',
@@ -100,7 +106,6 @@
           domHeight += foodListDom[i].offsetHeight
           this.heightArr.push(domHeight)
         }
-        console.log('heightArr', this.heightArr)
         //  初始化左侧点餐的滚动事件
         this.menuScroll = new BScroll('#menuWrapper', {
           click: true
@@ -217,5 +222,5 @@
           .cartcontrol-wrapper
             position: absolute
             right: 0
-            bottom: 12px
+            bottom: 20px
 </style>

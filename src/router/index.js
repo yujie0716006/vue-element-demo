@@ -9,7 +9,12 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/app/msite'
+      redirect: '/practice'
+    },
+    {
+      path: '/practice',
+      name: '练习测试',
+      component: () => import('../practice/practice.vue')
     },
     {
       path: '/',

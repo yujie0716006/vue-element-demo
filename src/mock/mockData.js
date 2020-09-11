@@ -63,6 +63,29 @@ export const foodsData =  Mock.mock({
                 "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
               ]
             },
+            {
+              "name": "小米粥",
+              "price|0-9": 9,
+              "oldPrice": "",
+              "description": "@city",
+              "sellCount|50-99": 91,
+              "rating|10-99": 100,
+              "info": "@csentence",
+              "ratings|3-6": [
+                {
+                  "username": "3******c",
+                  "rateTime": '@id',
+                  "rateType|0-1": 0,
+                  "text": "@county",
+                  "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+                },
+              ],
+              "icon": "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/114/h/114",
+              "image": "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
+              "images": [
+                "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
+              ]
+            },
           ]
         }
       ],

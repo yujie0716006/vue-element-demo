@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #parent{
+      position: relative;  /*子绝父相*/
+    }
+    #left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #f00;
+      width: 100px;
+      height: 500px;
+    }
+    #right {
+      position: absolute;
+      top: 0;
+      left: 100px;  /*值大于等于#left的宽度*/
+      right: 0;
+      background-color: #0f0;
+      height: 500px;
+    }
+
+  </style>
+</head>
+<body onload="setup()">
+<div id="outer">
+  <div id="inner">
+    CLICK
+  </div>
+</div>
+</body>
+<script>
+  function setup(){
+    var outer = document.getElementById('outer');
+    outer.addEventListener('click', function(){console.log('outer false');}, false);
+    outer.addEventListener('click', function(){console.log('outer true');}, true);
+
+    var inner = document.getElementById('inner');
+    inner.addEventListener('click', function(){console.log('inner true');}, true);
+    inner.addEventListener('click', function(){console.log('inner false');}, false);
+  }
+</script>
+</html>
