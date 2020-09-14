@@ -89,19 +89,19 @@
         }
       }
       // 当前promise的状态为resolved成功
-      if (this.status === RESOLVED) {
+      if (self.status === RESOLVED) {
         //  状态为resolved，立即异步执行成功的回调函数onResolved
         setTimeout(() => {
           handle(onResolved)
         })
-      } else if (this.status === REJECTED) { // 当前promise的状态为rejected失败
+      } else if (self.status === REJECTED) { // 当前promise的状态为rejected失败
         setTimeout(() => {
           handle(onRejected)
         })
       } else { // 当前promise的状态为pending
       //  pending表示状态还没有改变，将成功/失败的回调函数先在callbacks容器中缓存起来
       //  缓存中的回调函数也得判断返回值是否是promise的情况
-        this.callbacks.push({
+        self.callbacks.push({
           onResolved() {handle(onResolved)},
           onRejected() {handle(onRejected)}
         })
@@ -116,11 +116,20 @@
   }
 //  用来返回一个指定value的成功的promise;value可能是一个一般值，也可能是一个promise对象
   Promise.resolve = function (value) {
-
+    return new Promise((resolve, reject) => {
+      if (value instanceof Promise) { // value是一个promise对象
+      //  使用value的执行结果作为新promise的结果
+        value.then(resolve, reject)
+      } else { // value是一个一般值，直接将其结果成功返回
+        resolve(value)
+      }
+    })
   }
-//  用来指定一个返回reason的失败的promise
+//  用来指定一个返回reason的失败的promise,返回一个promise
   Promise.reject = function (reason) {
-
+    return new Promise((resolve, reject) => {
+      reject(reason)
+    })
   }
 //  返回一个promise对象，只有当数组中所有promise都成功才成功，否则失败
   Promise.all = function (promises) {

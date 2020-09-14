@@ -8,15 +8,14 @@
 
 </body>
 <script type="text/javascript" src="./promise.js"></script>
-<script type='text/javascript'>
+<!--测试自定义promise.then的方法-->
+<!--<script type='text/javascript'>
   const p = new Promise((resolve, reject) => {
- /*   setTimeout(() => {
-      // resolve('成功')
+    setTimeout(() => {
+      resolve('成功')
       // reject('失败')
-      // throw 5
-    })*/
- throw 5
-
+    })
+ // throw 5
   }).then(
     value => console.log('resolve111111', value),
     reason => console.log('reject111111', reason)
@@ -24,6 +23,23 @@
     value => console.log('resolve22222', value),
     reason => console.log('reject22222', reason)
   )
+</script>-->
 
+<!--测试自定义promise.resolve和promise.reject方法-->
+<script type="text/javascript">
+  p1 = Promise.resolve('成功')
+  // p2 = Promise.reject('失败')
+  // p3 = Promise.resolve(Promise.resolve('返回一个promise 成功'))
+
+  p1.then(value => {
+    console.log('p1', value)
+  })
+
+  // p2.catch(reason => {
+  //   console.log('p2', reason)
+  // })
+  // p3.then(value => {
+  //   console.log('p3', value)
+  // })
 </script>
 </html>
