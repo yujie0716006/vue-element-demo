@@ -10,16 +10,17 @@
 <script type="text/javascript" src="./promise.js"></script>
 <script type='text/javascript'>
   const p = new Promise((resolve, reject) => {
-    setTimeout(() => {
+ /*   setTimeout(() => {
       // resolve('成功')
-      reject('失败')
-    })
-  })
-  p.then(
+      // reject('失败')
+      // throw 5
+    })*/
+ throw 5
+
+  }).then(
     value => console.log('resolve111111', value),
     reason => console.log('reject111111', reason)
-  )
-  p.then(
+  ).then(
     value => console.log('resolve22222', value),
     reason => console.log('reject22222', reason)
   )
