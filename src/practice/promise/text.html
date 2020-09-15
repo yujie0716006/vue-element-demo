@@ -26,20 +26,45 @@
 </script>-->
 
 <!--测试自定义promise.resolve和promise.reject方法-->
-<script type="text/javascript">
+<!--测试自定义promise.all和promise.race方法-->
+<!--<script type="text/javascript">
   p1 = Promise.resolve('成功')
-  // p2 = Promise.reject('失败')
-  // p3 = Promise.resolve(Promise.resolve('返回一个promise 成功'))
+  p2 = Promise.reject('失败')
+  p3 = Promise.resolve(Promise.resolve('返回一个promise 成功'))
+  p4 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('延时成功')
+      }, 1000)
+    })
 
-  p1.then(value => {
-    console.log('p1', value)
-  })
+    /*  p1.then(value => {
+        console.log('p1', value)
+      })
+      p2.catch(reason => {
+        console.log('p2', reason)
+      })
+      p3.then(value => {
+        console.log('p3', value)
+      })*/
+    Promise.all([p4, p1, p3])
+      .then(
+        value => console.log('resolved', value),
+        reason => console.log('rejected', reason)
+      )
+      Promise.race([p4,p3,7, 8, p1])
+        .then(
+          value => console.log('resolved', value),
+          reason => console.log('rejected', reason)
+        )
+</script>-->
 
-  // p2.catch(reason => {
-  //   console.log('p2', reason)
-  // })
-  // p3.then(value => {
-  //   console.log('p3', value)
-  // })
+<!--测试resolveDelay和rejectDelay-->
+<script type='text/javascript'>
+  const p1 = Promise.resolve('成功')
+  const p2 = Promise.resolveDelay('延时成功', 1000)
+  const p3 = Promise.rejectDelay('延时失败', 2000)
+  p2.then(value => console.log('p2', value))
+  p1.then(value => console.log('p1', value))
+  p3.catch(reason => console.log('p3', reason))
 </script>
 </html>

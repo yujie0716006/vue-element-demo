@@ -1,3 +1,4 @@
+// 使用ES 5
 /*自定义Promise函数模块：IIFE*/
 (function(window) {
   const PENDING = 'pending'
@@ -125,20 +126,81 @@
       }
     })
   }
+
 //  用来指定一个返回reason的失败的promise,返回一个promise
   Promise.reject = function (reason) {
     return new Promise((resolve, reject) => {
       reject(reason)
     })
   }
-//  返回一个promise对象，只有当数组中所有promise都成功才成功，否则失败
+
+//  返回一个promise对象，只有当数组中所有promise都成功才成功，否则失败。
   Promise.all = function (promises) {
-
+    return new Promise((resolve, reject) => {
+      // 定义一个计数器，记录promise成功的个数
+      let resolvedCount = 0
+    //  promise返回值数据中的数据与promise的参数顺序必须是一样的，长度也是一样的
+      const values = new Array(promises.length)
+      promises.forEach((promise, index) => {
+      //  循环调用每一个promise，之后调用then才知道他的返回结果，只有进入到then中的value才表示成功了
+      //  promise的类型可能是基本数据类型，所以我们把它都转换成promise对象。
+        Promise.resolve(promise).then(
+          value => {
+            resolvedCount++
+            values[index] = value
+            if (resolvedCount === promises.length) {
+              resolve(values)
+            }
+          },
+          reason => {
+            reject(reason) // 当只有一个reject错误时，all的结果就为错误的
+          }
+        )
+      })
+    })
   }
-//  返回一个promise，由第一个完成promise决定
+
+//  返回一个promise对象，第一个完成的值就是race返回的值，只看第一个完成的,并返回他的值
   Promise.race = function (promises) {
-
+    return new Promise((resolve, reject) => {
+      promises.forEach(promise => {
+        Promise.resolve(promise).then(
+          value => {
+            resolve(value)
+          },
+          reason => {
+            reject(reason)
+          }
+        )
+      })
+    })
   }
+
+//  返回一个promsie对象，延迟一点时间才返回这个promise的结果成功/失败
+  Promise.resolveDelay = function (value, time) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (value instanceof Promise) {
+          value.then(
+            value => resolve(value),
+            reason => reject(reason)
+          )
+        } else {
+          return resolve(value)
+        }
+      }, time)
+    })
+  }
+
+//  返回一个promise对象，延迟一段时间返回错误的结果
+  Promise.rejectDelay = function (reason, time) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(reason)
+      }, time)
+    })
+  }
+
 //  向外暴露promise（相当于在window上添加promise属性）
   window.Promise = Promise
 })(window)
